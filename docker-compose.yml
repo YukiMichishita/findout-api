@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  node:
+    image: identify_node
+    build:
+      context: .
+      dockerfile: ./docker/node/Dockerfile
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mysql
+    ports:
+      - 8000:8000
+    tty: true
+
+  mysql:
+    container_name: identify_mysql
+    build:
+      context: ./docker/mysql/
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=identify
+    env_file:
+      - .env.mysql
+    ports:
+      - "3306:3306"
