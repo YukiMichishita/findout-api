@@ -2,7 +2,7 @@ version: "3"
 
 services:
   node:
-    image: identify_node
+    image: findout_node
     build:
       context: .
       dockerfile: ./docker/node/Dockerfile
@@ -15,7 +15,7 @@ services:
     tty: true
 
   mysql:
-    container_name: identify_mysql
+    container_name: findout_mysql
     build:
       context: ./docker/mysql/
       dockerfile: ./Dockerfile
@@ -23,7 +23,7 @@ services:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
     environment:
-      - MYSQL_ROOT_PASSWORD=identify
+      - MYSQL_ROOT_PASSWORD=findout
     env_file:
       - .env.mysql
     ports:

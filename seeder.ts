@@ -8,6 +8,7 @@ async function main() {
     data: {
       name: "Alice",
       isOwner: true,
+      roomId: "1111",
     },
   });
 }

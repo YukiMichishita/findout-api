@@ -1,4 +1,3 @@
-CREATE DATABASE identify;
+CREATE DATABASE findout;
 
-USE identify;
-
+USE findout;

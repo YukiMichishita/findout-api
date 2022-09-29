@@ -10,9 +10,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  VOTER
+  REAL
+  FAKE
+  Questioner
+}
+
+enum AorB{
+  A
+  B
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   name  String
   isOwner Boolean
+  roomId String
+  role Role @default(VOTER)
+  turnOrder Int
+  isCorrectVote Boolean?
+  Room Room @relation(fields:[roomId], references:[id])
+  AskedQuestion Question[] @relation(name:"askUser")
+  RealAnsweredQuestion Question[] @relation(name:"realAnswerUser")
+  FakeAnsweredQuestion Question[] @relation(name:"fakeAnswerUser")
 }
 
+
+model Room {
+  id String @id
+  User User[]
+  isPlaying Boolean
+  Round Int
+  Real AorB?
+}
+
+model Question {
+  id Int @id @default(autoincrement())
+  Round Int
+  askUserId Int
+  AskUser User @relation(fields:[askUserId], references:[id], name:"askUser")
+  realAnswerUserId Int?
+  RealAnswerUser User? @relation(fields:[realAnswerUserId], references:[id], name:"realAnswerUser")
+  fakeAnswerUserId Int?
+  FakeAnswerUser User? @relation(fields:[fakeAnswerUserId], references:[id], name:"fakeAnswerUser")
+  content String
+  realAnswer String?
+  fakeAnswer String?
+}

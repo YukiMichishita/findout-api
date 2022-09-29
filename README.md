@@ -1,4 +1,4 @@
-# identify
+# findout
 
 ## WakeUp or Donate
 
@@ -10,4 +10,4 @@ docker-compose up
 ## DB 接続
 
 docker-compose exec mysql bash
-mysql -u root -pidentify
+mysql -u root -pfindout
